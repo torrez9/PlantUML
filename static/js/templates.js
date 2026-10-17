@@ -410,21 +410,22 @@ FlaskApp --> S3 : Almacenar imágenes exportadas
         name: "Tiempo (Timing)",
         category: "uml",
         badge: "UML",
-        description: "Representación precisa de transiciones de estado a lo largo de una línea temporal con pulsos de reloj.",
+        description: "Representación precisa de transiciones de estado a lo largo de una línea temporal.",
         code: `@startuml
 !theme vibrant
+title Diagrama de Tiempo - Sincronización de Procesos
+
 robust "Cliente Web" as Web
 robust "Servidor Flask" as Server
 concise "Estado de Sesión" as Session
-clock "Ciclo de Reloj (ms)" with period 50 pulse 15
 
 @0
 Web is Inactivo
 Server is Esperando
-Session is SinSesion
+Session is Desconectado
 
 @100
-Web is EnviandoFormulario
+Web is EnviandoCredenciales
 Server is Esperando
 
 @150
@@ -433,21 +434,22 @@ Server is ValidandoCredenciales
 Session is Autenticando
 
 @300
-Server is GenerandoJWT
-Session is Activo
+Server is GenerandoToken
+Session is Conectado
 
 @350
-Web is RenderizandoDashboard
+Web is Conectado
 Server is EnEspera
+Session is Activo
 
 @550
-Web is SolicitandoLogout
+Web is CerrandoSesion
 Server is RevocandoToken
 
 @650
-Web is RedirigidoLogin
+Web is Inactivo
 Server is EnEspera
-Session is Expirado
+Session is Desconectado
 @enduml`
     },
 

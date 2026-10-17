@@ -215,7 +215,7 @@ Dentro del botón **"Mis Diagramas"** encontrarás ejemplos pre-cargados listos 
 | `Tab` | Insertar sangría de 2 espacios en el editor. |
 | `Rueda del Ratón` | Zoom continuo (acercar / alejar) en el lienzo del diagrama. |
 | `Clic y Arrastrar` | Paneo libre para desplazarse por diagramas grandes. |
-| Botones `+` / `-` / `🎯` | Acercar, alejar o restablecer el zoom a su escala 1:1. |
+| Botones `+` / `-` / `1:1` | Acercar, alejar o restablecer el zoom a su escala 1:1. |
 
 ---
 

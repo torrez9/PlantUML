@@ -715,6 +715,40 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast(state.autoRender ? "Renderizado automático activado" : "Renderizado manual (usa Ctrl+Enter)");
     });
 
+    // Doble clic en el lienzo para restablecer el zoom
+    canvasContainer.addEventListener("dblclick", () => {
+        resetZoom();
+        showToast("Zoom restablecido (100%)");
+    });
+
+    // Desplazamiento horizontal fluido con la rueda del ratón en la barra de categorías
+    const categoryBar = document.querySelector(".category-bar-wrapper");
+    if (categoryBar) {
+        categoryBar.addEventListener("wheel", (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                categoryBar.scrollLeft += e.deltaY;
+            }
+        }, { passive: false });
+    }
+
+    // Cerrar modales y menús desplegables con tecla Escape
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            document.querySelectorAll(".modal-backdrop.show").forEach(m => m.classList.remove("show"));
+            document.querySelectorAll(".dropdown-menu.show").forEach(d => d.classList.remove("show"));
+        }
+    });
+
+    // Cerrar modal al hacer clic en el fondo oscuro exterior
+    document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+        backdrop.addEventListener("click", (e) => {
+            if (e.target === backdrop) {
+                backdrop.classList.remove("show");
+            }
+        });
+    });
+
     // Comprobar estado del motor local de DiagramCraft
     fetch("/api/status")
         .then(r => r.json())
