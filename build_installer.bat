@@ -17,9 +17,11 @@ echo.
 echo [2/3] Empaquetando aplicación nativa de escritorio con PyInstaller...
 pyinstaller --noconfirm --onedir --windowed --noconsole ^
     --name "DiagramCraft" ^
+    --icon "app.ico" ^
     --add-data "templates;templates" ^
     --add-data "static;static" ^
     --add-data "bin;bin" ^
+    --add-data "app.ico;." ^
     --hidden-import "clr" ^
     --hidden-import "pythonnet" ^
     --hidden-import "webview" ^

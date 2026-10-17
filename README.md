@@ -1,10 +1,20 @@
-# DiagramCraft Studio
+<p align="center">
+  <img src="static/img/logo_256.png" width="96" height="96" alt="DiagramCraft Studio Logo">
+</p>
 
-[![Autor: Jose](https://img.shields.io/badge/Autor-Jose-blue.svg)](https://github.com/)
-[![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-green.svg)](LICENSE)
-[![Python: 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)](https://www.python.org/)
-[![Modo: 100% Local Offline](https://img.shields.io/badge/Motor-100%25%20Local%20Offline-success.svg)](LICENSE)
-[![Open Source](https://img.shields.io/badge/Open%20Source-Uso%20Gratuito%20Local-orange.svg)](LICENSE)
+<h1 align="center">DiagramCraft Studio</h1>
+
+<p align="center">
+  <strong>Entorno Nativo y de Escritorio para Modelado y Generación Local de Diagramas Técnicos</strong>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Autor-Jose-blue.svg" alt="Autor Jose"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Licencia-MIT-green.svg" alt="Licencia MIT"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue.svg" alt="Python Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Motor-100%25%20Local%20Offline-success.svg" alt="Offline Engine"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Windows-Setup.exe%20%26%20Portable-purple.svg" alt="Windows Desktop App"></a>
+</p>
 
 **DiagramCraft Studio** es una plataforma integral de modelado, diseño y generación de diagramas técnicos desarrollada y creada por **Jose**. Diseñada como software de **código abierto y uso gratuito local**, permite trabajar de forma 100% desconectada (offline), garantizando total privacidad, velocidad instantánea y cero dependencias de servicios externos o servidores en la nube.
 

@@ -15,6 +15,11 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
     <title>DiagramCraft Studio - Diseñador y Generador Local de Diagramas</title>
     <meta name="description" content="DiagramCraft Studio es una plataforma de software libre creada por Jose para diseñar y exportar diagramas UML, arquitectura de software, procesos y modelos de datos de forma 100% local.">
     
+    <!-- Favicon e Iconos de la Aplicación -->
+    <link rel="icon" type="image/png" href="/static/img/logo.png">
+    <link rel="shortcut icon" href="/static/img/app.ico">
+    <link rel="apple-touch-icon" href="/static/img/logo_256.png">
+
     <!-- Fuentes tipográficas profesionales -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,16 +34,11 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
     <header class="navbar">
         <!-- Logotipo y Marca DiagramCraft -->
         <div class="brand" onclick="location.reload()" title="DiagramCraft Studio - Por Jose">
-            <div class="brand-logo">
-                <svg class="brand-svg" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-                    <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-                    <rect x="8.5" y="14" width="7" height="7" rx="1.5"/>
-                    <path d="M6.5 10v2a2 2 0 0 0 2 2h3.5m5.5-4v2a2 2 0 0 1-2 2h-3.5"/>
-                </svg>
+            <div class="brand-logo" style="background: transparent; box-shadow: 0 0 16px rgba(124, 58, 237, 0.45); padding: 0;">
+                <img src="/static/img/logo.png" alt="DiagramCraft Studio Logo" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover; display: block;">
             </div>
             <div class="brand-text">
-                <h1>DiagramCraft <span class="brand-badge">Studio</span> <span class="brand-badge-free">Por Jose</span></h1>
+                <h1>DiagramCraft <span class="brand-badge" data-i18n="brandSubtitle">Studio</span> <span class="brand-badge-free" data-i18n="brandAuthor">Por Jose</span></h1>
             </div>
         </div>
 
@@ -381,6 +381,9 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             </div>
             <div class="modal-body">
                 <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
+                    <div style="text-align: center; padding: 0.25rem 0;">
+                        <img src="/static/img/logo.png" alt="DiagramCraft Studio" style="width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 4px 18px rgba(124, 58, 237, 0.45); display: inline-block;">
+                    </div>
                     <p data-i18n="aboutParagraph1"><strong style="color: var(--text-primary); font-size: 1rem;">DiagramCraft Studio</strong> es una plataforma de software libre creada por <strong>Jose</strong> para permitir a desarrolladores, arquitectos de software y estudiantes modelar, visualizar y exportar diagramas técnicos de forma 100% local, sin conexión a internet y sin intermediarios.</p>
                     <ul style="padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem;">
                         <li data-i18n="aboutAuthor"><strong>Autor y Creador:</strong> Jose</li>
