@@ -1,0 +1,10 @@
+@startuml
+!theme vibrant
+title Prueba de Decodificación y Renderizado Local
+node "Cadena Codificada" as Enc
+node "Decodificador Python" as Dec
+node "Lienzo SVG Local" as View
+
+Enc -> Dec : Envía datos comprimidos
+Dec -> View : Renderiza diagrama 100% offline
+@enduml

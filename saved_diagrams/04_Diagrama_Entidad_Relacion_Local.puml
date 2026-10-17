@@ -1,0 +1,33 @@
+@startuml
+!theme cerulean
+title Diagrama Entidad-Relación (ERD) Local
+
+entity "USUARIO" as user {
+  * id : UUID <<PK>>
+  --
+  * email : VARCHAR(255) <<UNIQUE>>
+  * nombre : VARCHAR(120)
+  * password_hash : VARCHAR(255)
+  * creado_en : TIMESTAMP
+}
+
+entity "PROYECTO" as proj {
+  * id : UUID <<PK>>
+  --
+  * usuario_id : UUID <<FK>>
+  * nombre_proyecto : VARCHAR(100)
+  * descripcion : TEXT
+}
+
+entity "DIAGRAMA" as diag {
+  * id : UUID <<PK>>
+  --
+  * proyecto_id : UUID <<FK>>
+  * titulo : VARCHAR(150)
+  * codigo_fuente : TEXT
+  * actualizado_en : TIMESTAMP
+}
+
+user ||--o{ proj : "administra"
+proj ||--|{ diag : "contiene"
+@enduml

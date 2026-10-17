@@ -1,0 +1,15 @@
+@startuml
+!theme materia
+title Arquitectura de Sistema Local Desconectado
+
+package "DiagramCraft Studio (Host Local)" {
+    [Navegador Web / SPA] as Browser
+    [Servidor Flask (Python 3.12)] as FlaskServer
+    [Motor Local PlantUML (Java JRE 21)] as LocalEngine
+    folder "Carpeta saved_diagrams/" as Storage
+}
+
+Browser --> FlaskServer : HTTP :5000 (Localhost / LAN)
+FlaskServer --> LocalEngine : Proceso Local Subprocess
+FlaskServer --> Storage : Lectura y Escritura de archivos .puml
+@enduml

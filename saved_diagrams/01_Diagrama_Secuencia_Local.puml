@@ -1,0 +1,24 @@
+@startuml
+!theme cerulean
+autonumber
+title Diagrama de Secuencia - Renderizado 100% Local Offline
+
+actor "Usuario" as User
+boundary "Interfaz DiagramCraft" as Web
+control "Servidor Flask Local" as Flask
+entity "Motor PlantUML JAR" as Engine
+
+User -> Web : Escribe o pega código / cadena codificada
+activate Web
+Web -> Flask : POST /api/render {code, format}
+activate Flask
+Flask -> Flask : Detecta si requiere decodificación
+Flask -> Engine : Ejecuta java -jar plantuml.jar (Pipe Local)
+activate Engine
+Engine --> Flask : Genera SVG / PNG nativo
+deactivate Engine
+Flask --> Web : Retorna gráfico vectorial directamente
+deactivate Flask
+Web --> User : Muestra diagrama en el lienzo interactivo
+deactivate Web
+@enduml

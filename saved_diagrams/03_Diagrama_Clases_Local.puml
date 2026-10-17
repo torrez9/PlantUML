@@ -1,0 +1,34 @@
+@startuml
+!theme cerulean
+skinparam classAttributeIconSize 0
+title Diagrama de Clases del Motor Local
+
+interface RenderEngine {
+  +render(code: String, format: String): byte[]
+  +isAvailable(): Boolean
+}
+
+class LocalJarEngine {
+  -javaPath: String
+  -jarPath: String
+  +render(code: String, format: String): byte[]
+  +isAvailable(): Boolean
+}
+
+class DiagramController {
+  -savedDir: String
+  +renderPreview(req: Request): Response
+  +download(format: String): File
+  +decodeInput(encoded: String): String
+}
+
+class DiagramDecoder {
+  -alphabet: String
+  +decode64(data: String): byte[]
+  +inflate(compressed: byte[]): String
+}
+
+RenderEngine <|.. LocalJarEngine : implementa
+DiagramController --> RenderEngine : usa
+DiagramController --> DiagramDecoder : utiliza
+@enduml
