@@ -63,6 +63,17 @@ function showToast(msg, duration = 2500) {
 }
 
 /**
+ * Alterna el idioma activo entre Español (es) e Inglés (en) y actualiza la interfaz.
+ */
+function toggleLanguage() {
+    const nextLang = (typeof currentLang !== "undefined" && currentLang === "es") ? "en" : "es";
+    if (typeof setLanguage === "function") {
+        setLanguage(nextLang);
+    }
+    showToast(nextLang === "es" ? "Idioma cambiado a Español" : "Language switched to English");
+}
+
+/**
  * Aplica el tema visual a la interfaz (Modo Oscuro o Modo Claro) y lo almacena localmente.
  * @param {string} theme 'dark' o 'light'
  */
@@ -87,8 +98,10 @@ function updateLineNumbers() {
         numbers += i + "\n";
     }
     lineNumbers.textContent = numbers;
-    lineCountText.textContent = `${count} líneas`;
-    charCountText.textContent = `${editor.value.length} caracs`;
+    const linesWord = typeof t === "function" ? t("linesText") : "líneas";
+    const charsWord = typeof t === "function" ? t("charsText") : "caracs";
+    lineCountText.textContent = `${count} ${linesWord}`;
+    charCountText.textContent = `${editor.value.length} ${charsWord}`;
 }
 
 // Sincronizar el desplazamiento vertical de los números de línea con el editor
@@ -208,7 +221,8 @@ function hideError() {
 async function renderDiagram(force = false) {
     const code = editor.value.trim();
     if (!code) {
-        viewport.innerHTML = `<div style="color: var(--text-muted); padding: 2rem;">Ingresa código o selecciona una plantilla en la barra superior de DiagramCraft.</div>`;
+        const hint = typeof t === "function" ? t("emptyEditorHint") : "Ingresa código o selecciona una plantilla en la barra superior de DiagramCraft.";
+        viewport.innerHTML = `<div style="color: var(--text-muted); padding: 2rem;">${hint}</div>`;
         return;
     }
 
@@ -236,7 +250,7 @@ async function renderDiagram(force = false) {
             if (data.decoded_code && data.decoded_code !== code) {
                 editor.value = data.decoded_code;
                 updateLineNumbers();
-                showToast("Cadena codificada traducida a código fuente en DiagramCraft");
+                showToast(typeof t === "function" ? t("toastDecodedSuccess") : "Cadena codificada traducida a código fuente en DiagramCraft");
             }
 
             if (data.format === "svg") {
@@ -247,10 +261,10 @@ async function renderDiagram(force = false) {
                 viewport.innerHTML = `<pre>${escapeHtml(data.content)}</pre>`;
             }
         } else {
-            showError(data.error || "Ocurrió un error al compilar el diagrama en DiagramCraft.");
+            showError(data.error || (typeof t === "function" ? t("toastErrorPrefix") + " " + "Error" : "Ocurrió un error al compilar el diagrama en DiagramCraft."));
         }
     } catch (err) {
-        showError("No fue posible comunicarse con el servidor local: " + err.message);
+        showError("DiagramCraft: " + err.message);
     } finally {
         loadingOverlay.classList.remove("active");
     }
@@ -260,7 +274,8 @@ async function renderDiagram(force = false) {
  * Solicita al usuario una cadena codificada o URL, la decodifica y la carga en el editor.
  */
 async function promptDecodeInput() {
-    const raw = prompt("Pega aquí la cadena codificada (~1...) o la URL del diagrama:");
+    const promptMsg = typeof t === "function" ? t("toastDecodePrompt") : "Pega aquí la cadena codificada (~1...) o la URL del diagrama:";
+    const raw = prompt(promptMsg);
     if (!raw || !raw.trim()) return;
 
     try {
@@ -274,12 +289,12 @@ async function promptDecodeInput() {
             editor.value = data.code;
             updateLineNumbers();
             renderDiagram(true);
-            showToast("Diagrama decodificado y renderizado con éxito");
+            showToast(typeof t === "function" ? t("toastDecodedSuccess") : "Diagrama decodificado y renderizado con éxito");
         } else {
             showToast(data.error || "No se pudo decodificar la cadena.");
         }
     } catch (err) {
-        showToast("Error en el decodificador local: " + err.message);
+        showToast("DiagramCraft Decoder: " + err.message);
     }
 }
 
@@ -315,7 +330,8 @@ function setDiagramTheme(themeName) {
     editor.value = code;
     updateLineNumbers();
     renderDiagram(true);
-    showToast(`Tema de estilo '${themeName}' aplicado`);
+    const themeAppliedText = typeof t === "function" ? t("toastThemeApplied") : "Tema de estilo aplicado";
+    showToast(`${themeAppliedText}: ${themeName}`);
 }
 
 /**
@@ -327,7 +343,7 @@ function insertSnippet(snippetTipo) {
     if (snippetTipo === "orientation") {
         if (code.includes("left to right direction")) {
             code = code.replace("left to right direction\n", "");
-            showToast("Orientación vertical restablecida");
+            showToast(typeof t === "function" ? t("toastOrientationV") : "Orientación vertical restablecida");
         } else {
             const startRegex = /^(@start[a-z]+)/m;
             if (startRegex.test(code)) {
@@ -335,7 +351,7 @@ function insertSnippet(snippetTipo) {
             } else {
                 code = "left to right direction\n" + code;
             }
-            showToast("Orientación horizontal (Izquierda a Derecha) aplicada");
+            showToast(typeof t === "function" ? t("toastOrientationH") : "Orientación horizontal (Izquierda a Derecha) aplicada");
         }
     } else if (snippetTipo === "autonumber") {
         if (!code.includes("autonumber")) {
@@ -345,7 +361,7 @@ function insertSnippet(snippetTipo) {
             } else {
                 code = "autonumber\n" + code;
             }
-            showToast("Autonumeración de pasos activada");
+            showToast(typeof t === "function" ? t("toastAutonumber") : "Autonumeración de pasos activada");
         }
     } else if (snippetTipo === "handwritten") {
         if (!code.includes("skinparam handwritten true")) {
@@ -355,10 +371,11 @@ function insertSnippet(snippetTipo) {
             } else {
                 code = "skinparam handwritten true\n" + code;
             }
-            showToast("Estilo boceto a mano alzada activado");
+            showToast(typeof t === "function" ? t("toastHandwritten") : "Estilo boceto a mano alzada activado");
         }
     } else if (snippetTipo === "title") {
-        const titleText = prompt("Ingresa el título para el diagrama:", "Diagrama de Arquitectura");
+        const titlePrompt = typeof t === "function" ? t("toastTitlePrompt") : "Ingresa el título para el diagrama:";
+        const titleText = prompt(titlePrompt, "Diagrama de Arquitectura");
         if (titleText) {
             const startRegex = /^(@start[a-z]+)/m;
             if (startRegex.test(code)) {
@@ -366,7 +383,7 @@ function insertSnippet(snippetTipo) {
             } else {
                 code = `title ${titleText}\n` + code;
             }
-            showToast("Título agregado al diagrama");
+            showToast(typeof t === "function" ? t("toastTitleApplied") : "Título agregado al diagrama");
         }
     }
 
@@ -382,7 +399,7 @@ function insertSnippet(snippetTipo) {
 function downloadFile(format) {
     const code = editor.value.trim();
     if (!code) {
-        showToast("El código del diagrama está vacío");
+        showToast(typeof t === "function" ? t("toastEmptyCode") : "El código del diagrama está vacío");
         return;
     }
 
@@ -417,7 +434,8 @@ function downloadFile(format) {
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
-    showToast(`Descargando en formato ${format.toUpperCase()} (${state.exportScale}x)...`);
+    const dlStartMsg = typeof t === "function" ? t("toastDownloadStarting") : "Descargando en formato";
+    showToast(`${dlStartMsg} ${format.toUpperCase()} (${state.exportScale}x)...`);
 }
 
 /**
@@ -431,7 +449,7 @@ function exportToPdf() {
 async function copyCode() {
     try {
         await navigator.clipboard.writeText(editor.value);
-        showToast("Código copiado al portapapeles");
+        showToast(typeof t === "function" ? t("toastCodeCopied") : "Código copiado al portapapeles");
     } catch {
         showToast("Error al copiar al portapapeles");
     }
@@ -440,12 +458,12 @@ async function copyCode() {
 async function copySvg() {
     const svgEl = viewport.querySelector("svg");
     if (!svgEl) {
-        showToast("No hay gráfico SVG disponible para copiar");
+        showToast("No SVG disponible");
         return;
     }
     try {
         await navigator.clipboard.writeText(svgEl.outerHTML);
-        showToast("SVG vectorial copiado al portapapeles");
+        showToast(typeof t === "function" ? t("toastSvgCopied") : "SVG vectorial copiado al portapapeles");
     } catch {
         showToast("Error al copiar SVG");
     }
@@ -460,7 +478,8 @@ function setupCategoryTabs() {
     // Grupo 1: UML
     const umlLabel = document.createElement("div");
     umlLabel.className = "category-group-label";
-    umlLabel.innerHTML = `${SVG_ICONS.umlBadge} UML:`;
+    const umlCategoryText = typeof t === "function" ? t("catUML") : "UML:";
+    umlLabel.innerHTML = `${SVG_ICONS.umlBadge} ${umlCategoryText}`;
     categoryTabsContainer.appendChild(umlLabel);
 
     Object.values(DIAGRAM_TEMPLATES).forEach(tmpl => {
@@ -478,7 +497,8 @@ function setupCategoryTabs() {
     // Grupo 2: No-UML
     const nonUmlLabel = document.createElement("div");
     nonUmlLabel.className = "category-group-label";
-    nonUmlLabel.innerHTML = `${SVG_ICONS.techBadge} No UML:`;
+    const nonUmlCategoryText = typeof t === "function" ? t("catNonUML") : "No UML:";
+    nonUmlLabel.innerHTML = `${SVG_ICONS.techBadge} ${nonUmlCategoryText}`;
     categoryTabsContainer.appendChild(nonUmlLabel);
 
     Object.values(DIAGRAM_TEMPLATES).forEach(tmpl => {
@@ -518,7 +538,6 @@ function loadTemplate(id) {
     updateLineNumbers();
     resetZoom();
     renderDiagram(true);
-    showToast(`Plantilla cargada: ${tmpl.name}`);
 }
 
 // Control de ventanas modales
@@ -546,7 +565,7 @@ async function saveCurrentDiagram() {
     const code = editor.value.trim();
 
     if (!name) {
-        showToast("Por favor ingresa un nombre para el diagrama");
+        showToast(typeof t === "function" ? t("toastNameRequired") : "Por favor ingresa un nombre para el diagrama");
         return;
     }
 
@@ -558,7 +577,8 @@ async function saveCurrentDiagram() {
         });
         const data = await response.json();
         if (response.ok && data.success) {
-            showToast(`Diagrama guardado exitosamente: ${data.filename}`);
+            const savedMsg = typeof t === "function" ? t("toastDiagramSaved") : "Diagrama guardado exitosamente:";
+            showToast(`${savedMsg} ${data.filename}`);
             closeModal("save-modal");
             nameInput.value = "";
         } else {
@@ -572,14 +592,16 @@ async function saveCurrentDiagram() {
 // Listar diagramas guardados en disco
 async function fetchSavedDiagrams() {
     const container = document.getElementById("saved-diagrams-list");
-    container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;">Cargando diagramas de DiagramCraft...</div>`;
+    const loadingMsg = typeof t === "function" ? t("loadingSaved") : "Cargando diagramas de DiagramCraft...";
+    container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;">${loadingMsg}</div>`;
 
     try {
         const response = await fetch("/api/diagrams");
         const data = await response.json();
         if (response.ok && data.success) {
             if (data.diagrams.length === 0) {
-                container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;">Aún no tienes diagramas guardados en la carpeta local.</div>`;
+                const emptyMsg = typeof t === "function" ? t("noSavedDiagrams") : "Aún no tienes diagramas guardados en la carpeta local.";
+                container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.8rem;">${emptyMsg}</div>`;
                 return;
             }
 
@@ -591,7 +613,7 @@ async function fetchSavedDiagrams() {
                 const title = document.createElement("div");
                 title.className = "saved-item-title";
                 title.textContent = diag.filename;
-                title.title = "Haz clic para abrir este diagrama";
+                title.title = typeof t === "function" ? t("openDiagramTooltip") : "Abrir diagrama";
                 title.addEventListener("click", () => loadSavedDiagram(diag.filename));
 
                 const actions = document.createElement("div");
@@ -600,13 +622,13 @@ async function fetchSavedDiagrams() {
                 const loadBtn = document.createElement("button");
                 loadBtn.className = "btn btn-secondary btn-icon";
                 loadBtn.innerHTML = SVG_ICONS.folderOpen;
-                loadBtn.title = "Abrir diagrama";
+                loadBtn.title = typeof t === "function" ? t("openDiagramTooltip") : "Abrir diagrama";
                 loadBtn.addEventListener("click", () => loadSavedDiagram(diag.filename));
 
                 const delBtn = document.createElement("button");
                 delBtn.className = "btn btn-ghost btn-icon";
                 delBtn.innerHTML = SVG_ICONS.trash;
-                delBtn.title = "Eliminar archivo";
+                delBtn.title = typeof t === "function" ? t("deleteDiagramTooltip") : "Eliminar archivo";
                 delBtn.style.color = "var(--accent-rose)";
                 delBtn.addEventListener("click", () => deleteSavedDiagram(diag.filename));
 
@@ -632,20 +654,23 @@ async function loadSavedDiagram(filename) {
             updateLineNumbers();
             closeModal("saved-modal");
             renderDiagram(true);
-            showToast(`Diagrama '${filename}' abierto`);
+            const openMsg = typeof t === "function" ? t("toastDiagramOpened") : "Diagrama abierto:";
+            showToast(`${openMsg} ${filename}`);
         }
     } catch (err) {
-        showToast("Error al cargar el archivo: " + err.message);
+        showToast("DiagramCraft: " + err.message);
     }
 }
 
 async function deleteSavedDiagram(filename) {
-    if (!confirm(`¿Estás seguro de que deseas eliminar permanentemente '${filename}'?`)) return;
+    const confirmPrefix = typeof t === "function" ? t("confirmDelete") : "¿Estás seguro de que deseas eliminar permanentemente";
+    if (!confirm(`${confirmPrefix} '${filename}'?`)) return;
     try {
         const response = await fetch(`/api/diagrams/${encodeURIComponent(filename)}`, { method: "DELETE" });
         const data = await response.json();
         if (response.ok && data.success) {
-            showToast(`Diagrama eliminado`);
+            const delMsg = typeof t === "function" ? t("toastDiagramDeleted") : "Diagrama eliminado";
+            showToast(delMsg);
             fetchSavedDiagrams();
         }
     } catch (err) {
@@ -675,6 +700,10 @@ document.addEventListener("click", () => {
 
 // Inicialización al cargar el DOM
 document.addEventListener("DOMContentLoaded", () => {
+    // Inicializar traducciones de interfaz
+    if (typeof applyTranslations === "function") {
+        applyTranslations();
+    }
     applyAppTheme(state.theme);
     setupCategoryTabs();
 
@@ -699,7 +728,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scaleSelect) {
         scaleSelect.addEventListener("change", (e) => {
             state.exportScale = e.target.value;
-            showToast(`Resolución de exportación fijada en ${state.exportScale}x`);
+            const resMsg = typeof t === "function" ? t("toastResolutionset") : "Resolución de exportación fijada en";
+            showToast(`${resMsg} ${state.exportScale}x`);
         });
     }
 
@@ -712,13 +742,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Interruptor de auto-render
     autoRenderToggle.addEventListener("change", (e) => {
         state.autoRender = e.target.checked;
-        showToast(state.autoRender ? "Renderizado automático activado" : "Renderizado manual (usa Ctrl+Enter)");
+        const onMsg = typeof t === "function" ? t("toastAutoRenderOn") : "Renderizado automático activado";
+        const offMsg = typeof t === "function" ? t("toastAutoRenderOff") : "Renderizado manual (usa Ctrl+Enter)";
+        showToast(state.autoRender ? onMsg : offMsg);
     });
 
     // Doble clic en el lienzo para restablecer el zoom
     canvasContainer.addEventListener("dblclick", () => {
         resetZoom();
-        showToast("Zoom restablecido (100%)");
+        showToast(typeof t === "function" ? t("toastZoomReset") : "Zoom restablecido (100%)");
     });
 
     // Desplazamiento horizontal fluido con la rueda del ratón en la barra de categorías
@@ -755,7 +787,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             const badge = document.getElementById("engine-status-text");
             if (badge && data.is_offline) {
-                badge.textContent = "Motor 100% Local (Offline)";
+                badge.textContent = typeof t === "function" ? t("engineOffline") : "Motor 100% Local (Offline)";
             }
         })
         .catch(() => {});

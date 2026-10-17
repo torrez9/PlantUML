@@ -47,53 +47,53 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <!-- Indicador del Motor Local Offline -->
             <div class="engine-status-badge" id="engine-status-badge" title="Motor de DiagramCraft 100% local y offline">
                 <span class="status-dot"></span>
-                <span id="engine-status-text">Motor 100% Local</span>
+                <span id="engine-status-text" data-i18n="engineLocal">Motor 100% Local</span>
             </div>
 
             <!-- Botón Mis Diagramas -->
-            <button class="btn btn-secondary" onclick="openModal('saved-modal')" title="Ver diagramas guardados en disco">
+            <button class="btn btn-secondary" onclick="openModal('saved-modal')" data-i18n-title="myDiagrams">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                <span>Mis Diagramas</span>
+                <span data-i18n="myDiagrams">Mis Diagramas</span>
             </button>
 
             <!-- Botón Guardar -->
-            <button class="btn btn-secondary" onclick="openModal('save-modal')" title="Guardar este diagrama en disco local (Ctrl+S)">
+            <button class="btn btn-secondary" onclick="openModal('save-modal')" data-i18n-title="save">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                <span>Guardar</span>
+                <span data-i18n="save">Guardar</span>
             </button>
 
             <!-- Menú Desplegable: Personalizar -->
             <div class="dropdown-container">
                 <button class="btn btn-secondary" id="tools-dropdown-btn">
                     <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-                    <span>Personalizar</span>
+                    <span data-i18n="customize">Personalizar</span>
                     <svg class="icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="dropdown-menu" id="tools-dropdown-menu">
                     <button class="dropdown-item" onclick="insertSnippet('orientation')">
                         <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-                        <span>Alternar Orientación (H / V)</span>
+                        <span data-i18n="toggleOrientation">Alternar Orientación (H / V)</span>
                     </button>
                     <button class="dropdown-item" onclick="insertSnippet('autonumber')">
                         <svg class="icon" viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>
-                        <span>Activar Autonumeración</span>
+                        <span data-i18n="enableAutonumber">Activar Autonumeración</span>
                     </button>
                     <button class="dropdown-item" onclick="insertSnippet('title')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                        <span>Insertar Título de Diagrama</span>
+                        <span data-i18n="insertTitle">Insertar Título de Diagrama</span>
                     </button>
                     <button class="dropdown-item" onclick="insertSnippet('handwritten')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
-                        <span>Estilo Boceto a Mano Alzada</span>
+                        <span data-i18n="handwrittenStyle">Estilo Boceto a Mano Alzada</span>
                     </button>
                     <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.3rem 0;">
                     <button class="dropdown-item" onclick="promptDecodeInput()">
                         <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                        <span>Decodificar Cadena / URL</span>
+                        <span data-i18n="decodeString">Decodificar Cadena / URL</span>
                     </button>
                     <button class="dropdown-item" onclick="exportToPdf()">
                         <svg class="icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                        <span>Imprimir / Exportar a PDF</span>
+                        <span data-i18n="printPdf">Imprimir / Exportar a PDF</span>
                     </button>
                 </div>
             </div>
@@ -102,20 +102,20 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <div class="dropdown-container">
                 <button class="btn btn-secondary" id="theme-dropdown-btn">
                     <svg class="icon" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-                    <span>Temas</span>
+                    <span data-i18n="themes">Temas</span>
                     <svg class="icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="dropdown-menu" id="theme-dropdown-menu">
-                    <button class="dropdown-item theme-option" data-theme="cerulean">Cerulean (Moderno Azul)</button>
-                    <button class="dropdown-item theme-option" data-theme="materia">Materia (Material Design)</button>
-                    <button class="dropdown-item theme-option" data-theme="vibrant">Vibrant (Colorido y Vivo)</button>
-                    <button class="dropdown-item theme-option" data-theme="sketchy">Sketchy (Boceto Arquitectónico)</button>
-                    <button class="dropdown-item theme-option" data-theme="mint">Mint (Verde Menta)</button>
-                    <button class="dropdown-item theme-option" data-theme="blueprint">Blueprint (Plano Técnico)</button>
-                    <button class="dropdown-item theme-option" data-theme="carbon-gray">Carbon Gray (Neutro)</button>
-                    <button class="dropdown-item theme-option" data-theme="spacelab">Spacelab (Gris Metálico)</button>
-                    <button class="dropdown-item theme-option" data-theme="cyborg">Cyborg (Alto Contraste)</button>
-                    <button class="dropdown-item theme-option" data-theme="default">Por Defecto</button>
+                    <button class="dropdown-item theme-option" data-theme="cerulean" data-i18n="themeCerulean">Cerulean (Moderno Azul)</button>
+                    <button class="dropdown-item theme-option" data-theme="materia" data-i18n="themeMateria">Materia (Material Design)</button>
+                    <button class="dropdown-item theme-option" data-theme="vibrant" data-i18n="themeVibrant">Vibrant (Colorido y Vivo)</button>
+                    <button class="dropdown-item theme-option" data-theme="sketchy" data-i18n="themeSketchy">Sketchy (Boceto Arquitectónico)</button>
+                    <button class="dropdown-item theme-option" data-theme="mint" data-i18n="themeMint">Mint (Verde Menta)</button>
+                    <button class="dropdown-item theme-option" data-theme="blueprint" data-i18n="themeBlueprint">Blueprint (Plano Técnico)</button>
+                    <button class="dropdown-item theme-option" data-theme="carbon-gray" data-i18n="themeCarbon">Carbon Gray (Neutro)</button>
+                    <button class="dropdown-item theme-option" data-theme="spacelab" data-i18n="themeSpacelab">Spacelab (Gris Metálico)</button>
+                    <button class="dropdown-item theme-option" data-theme="cyborg" data-i18n="themeCyborg">Cyborg (Alto Contraste)</button>
+                    <button class="dropdown-item theme-option" data-theme="default" data-i18n="themeDefault">Por Defecto</button>
                 </div>
             </div>
 
@@ -123,44 +123,44 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <div class="dropdown-container">
                 <button class="btn btn-success" id="export-dropdown-btn">
                     <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    <span>Exportar</span>
+                    <span data-i18n="export">Exportar</span>
                     <svg class="icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </button>
                 <div class="dropdown-menu" id="export-dropdown-menu">
                     <!-- Selector de Resolución para PNG -->
                     <div style="padding: 0.4rem 0.75rem; font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between;">
-                        <span>Resolución PNG:</span>
+                        <span data-i18n="resolutionLabel">Resolución PNG:</span>
                         <select id="export-scale-select" style="background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 4px; font-size: 0.75rem; outline: none;">
-                            <option value="1">1x (Estándar)</option>
-                            <option value="2" selected>2x (Alta Definición)</option>
-                            <option value="3">3x (Ultra HD / 4K)</option>
+                            <option value="1" data-i18n="resStandard">1x (Estándar)</option>
+                            <option value="2" selected data-i18n="resHd">2x (Alta Definición)</option>
+                            <option value="3" data-i18n="resUhd">3x (Ultra HD / 4K)</option>
                         </select>
                     </div>
                     <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.3rem 0;">
                     <button class="dropdown-item" onclick="downloadFile('png')">
                         <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                        <span>Descargar PNG (Imagen)</span>
+                        <span data-i18n="downloadPng">Descargar PNG (Imagen)</span>
                     </button>
                     <button class="dropdown-item" onclick="downloadFile('svg')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                        <span>Descargar SVG (Vectorial)</span>
+                        <span data-i18n="downloadSvg">Descargar SVG (Vectorial)</span>
                     </button>
                     <button class="dropdown-item" onclick="downloadFile('txt')">
                         <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        <span>Descargar TXT (Arte ASCII)</span>
+                        <span data-i18n="downloadTxt">Descargar TXT (Arte ASCII)</span>
                     </button>
                     <button class="dropdown-item" onclick="downloadFile('puml')">
                         <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                        <span>Descargar Código Fuente</span>
+                        <span data-i18n="downloadPuml">Descargar Código Fuente</span>
                     </button>
                     <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.3rem 0;">
                     <button class="dropdown-item" onclick="copySvg()">
                         <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        <span>Copiar código SVG</span>
+                        <span data-i18n="copySvg">Copiar código SVG</span>
                     </button>
                     <button class="dropdown-item" onclick="copyCode()">
                         <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        <span>Copiar código fuente</span>
+                        <span data-i18n="copyCode">Copiar código fuente</span>
                     </button>
                 </div>
             </div>
@@ -168,16 +168,22 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <!-- Botón Renderizar -->
             <button class="btn btn-primary" onclick="renderDiagram(true)" title="Compilar diagrama inmediatamente (Ctrl+Enter)">
                 <svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>Renderizar</span>
+                <span data-i18n="render">Renderizar</span>
+            </button>
+
+            <!-- Selector de Idioma (ES / EN) -->
+            <button class="btn btn-secondary" id="lang-toggle-btn" onclick="toggleLanguage()" data-i18n-title="switchLang" style="font-weight: 700; font-size: 0.78rem; padding: 0.45rem 0.65rem; gap: 0.35rem;">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span id="current-lang-text">ES</span>
             </button>
 
             <!-- Acerca de / Créditos -->
-            <button class="btn btn-secondary btn-icon" onclick="openModal('about-modal')" title="Acerca de DiagramCraft Studio">
+            <button class="btn btn-secondary btn-icon" onclick="openModal('about-modal')" data-i18n-title="about">
                 <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
             </button>
 
             <!-- Alternar Modo Oscuro / Claro -->
-            <button class="btn btn-secondary btn-icon" id="theme-toggle-btn" title="Alternar entre tema claro y oscuro">
+            <button class="btn btn-secondary btn-icon" id="theme-toggle-btn" data-i18n-title="switchTheme">
                 <span id="theme-toggle-icon">
                     <svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </span>
@@ -204,17 +210,17 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <div class="pane-header">
                 <div class="pane-title">
                     <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                    <span>Editor de DiagramCraft</span>
+                    <span data-i18n="editorTitle">Editor de DiagramCraft</span>
                 </div>
                 <div class="pane-actions">
-                    <label style="font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem; cursor: pointer;" title="Compilar automáticamente mientras se edita">
+                    <label style="font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem; cursor: pointer;">
                         <input type="checkbox" id="auto-render-toggle" checked>
-                        <span>Auto-render</span>
+                        <span data-i18n="autoRenderLabel">Auto-render</span>
                     </label>
-                    <button class="btn btn-ghost btn-icon" onclick="editor.value = ''; updateLineNumbers();" title="Limpiar todo el editor">
+                    <button class="btn btn-ghost btn-icon" onclick="editor.value = ''; updateLineNumbers();" data-i18n-title="clearEditor">
                         <svg class="icon" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                     </button>
-                    <button class="btn btn-ghost btn-icon" onclick="copyCode()" title="Copiar código al portapapeles">
+                    <button class="btn btn-ghost btn-icon" onclick="copyCode()" data-i18n-title="copyEditor">
                         <svg class="icon" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                     </button>
                 </div>
@@ -227,6 +233,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
                     id="code-editor" 
                     class="code-textarea" 
                     placeholder="Escribe tu código de diagrama aquí..." 
+                    data-i18n-placeholder="placeholderEditor"
                     spellcheck="false"
                 ></textarea>
             </div>
@@ -237,7 +244,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
                     <span class="meta-pill" id="line-count">0 líneas</span>
                     <span class="meta-pill" id="char-count">0 caracs</span>
                 </div>
-                <div>Atajo: <strong>Ctrl + Enter</strong> compilar | <strong>Ctrl + S</strong> guardar | DiagramCraft Studio</div>
+                <div data-i18n="shortcutsHelp">Atajo: <strong>Ctrl + Enter</strong> compilar | <strong>Ctrl + S</strong> guardar</div>
             </div>
         </section>
 
@@ -245,7 +252,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
         <section class="preview-pane">
             <div class="preview-toolbar">
                 <div class="preview-controls">
-                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Formato:</span>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);" data-i18n="previewTitle">Formato:</span>
                     <button class="btn btn-secondary" onclick="state.currentFormat = 'svg'; renderDiagram(true);" title="Visualizar en SVG">
                         SVG
                     </button>
@@ -279,14 +286,14 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
 
                 <!-- Barra Flotante de Zoom -->
                 <div class="floating-zoom">
-                    <button class="btn btn-ghost btn-icon" onclick="zoomOut()" title="Alejar">
+                    <button class="btn btn-ghost btn-icon" onclick="zoomOut()" data-i18n-title="zoomOutTooltip">
                         <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
                     </button>
                     <span class="zoom-level" id="zoom-level">100%</span>
-                    <button class="btn btn-ghost btn-icon" onclick="zoomIn()" title="Acercar">
+                    <button class="btn btn-ghost btn-icon" onclick="zoomIn()" data-i18n-title="zoomInTooltip">
                         <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
                     </button>
-                    <button class="btn btn-ghost btn-icon" onclick="resetZoom()" title="Restablecer (1:1)">
+                    <button class="btn btn-ghost btn-icon" onclick="resetZoom()" data-i18n-title="zoomResetTooltip">
                         <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6"/><path d="M9 9h.01"/><path d="M15 15h.01"/></svg>
                     </button>
                 </div>
@@ -300,7 +307,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
                 <!-- Capa de Carga -->
                 <div class="loading-overlay" id="loading-overlay">
                     <div class="spinner"></div>
-                    <div style="font-size: 0.85rem; font-weight: 500; color: #cbd5e1;">Compilando diagrama en DiagramCraft...</div>
+                    <div style="font-size: 0.85rem; font-weight: 500; color: #cbd5e1;" data-i18n="compilingText">Compilando diagrama en DiagramCraft...</div>
                 </div>
             </div>
         </section>
@@ -317,7 +324,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <div class="modal-header">
                 <h3 class="modal-title">
                     <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                    <span>Guardar Diagrama Local</span>
+                    <span data-i18n="saveModalTitle">Guardar Diagrama Local</span>
                 </h3>
                 <button class="btn btn-ghost btn-icon" onclick="closeModal('save-modal')">
                     <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -325,14 +332,14 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="form-label" for="save-diagram-name">Nombre del archivo:</label>
-                    <input type="text" id="save-diagram-name" class="form-input" placeholder="Ej: Diagrama_Secuencia_Ventas">
-                    <small style="color: var(--text-muted); font-size: 0.72rem;">Se guardará en la carpeta local <code>saved_diagrams/</code> con formato <code>.puml</code></small>
+                    <label class="form-label" for="save-diagram-name" data-i18n="fileNameLabel">Nombre del archivo:</label>
+                    <input type="text" id="save-diagram-name" class="form-input" placeholder="Ej: Diagrama_Secuencia_Ventas" data-i18n-placeholder="fileNamePlaceholder">
+                    <small style="color: var(--text-muted); font-size: 0.72rem;" data-i18n="fileNameHelp">Se guardará en la carpeta local saved_diagrams/ con formato .puml</small>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('save-modal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="saveCurrentDiagram()">Guardar Archivo</button>
+                <button class="btn btn-secondary" onclick="closeModal('save-modal')" data-i18n="cancelBtn">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveCurrentDiagram()" data-i18n="saveBtn">Guardar Archivo</button>
             </div>
         </div>
     </div>
@@ -343,7 +350,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <div class="modal-header">
                 <h3 class="modal-title">
                     <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                    <span>Mis Diagramas Guardados</span>
+                    <span data-i18n="savedModalTitle">Mis Diagramas Guardados</span>
                 </h3>
                 <button class="btn btn-ghost btn-icon" onclick="closeModal('saved-modal')">
                     <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -355,7 +362,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('saved-modal')">Cerrar</button>
+                <button class="btn btn-secondary" onclick="closeModal('saved-modal')" data-i18n="closeBtn">Cerrar</button>
             </div>
         </div>
     </div>
@@ -366,7 +373,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             <div class="modal-header">
                 <h3 class="modal-title">
                     <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                    <span>Acerca de DiagramCraft Studio</span>
+                    <span data-i18n="aboutModalTitle">Acerca de DiagramCraft Studio</span>
                 </h3>
                 <button class="btn btn-ghost btn-icon" onclick="closeModal('about-modal')">
                     <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -374,18 +381,18 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
             </div>
             <div class="modal-body">
                 <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
-                    <p><strong style="color: var(--text-primary); font-size: 1rem;">DiagramCraft Studio</strong> es una plataforma de software libre creada por <strong>Jose</strong> para permitir a desarrolladores, arquitectos de software y estudiantes modelar, visualizar y exportar diagramas técnicos de forma 100% local, sin conexión a internet y sin intermediarios.</p>
+                    <p data-i18n="aboutParagraph1"><strong style="color: var(--text-primary); font-size: 1rem;">DiagramCraft Studio</strong> es una plataforma de software libre creada por <strong>Jose</strong> para permitir a desarrolladores, arquitectos de software y estudiantes modelar, visualizar y exportar diagramas técnicos de forma 100% local, sin conexión a internet y sin intermediarios.</p>
                     <ul style="padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem;">
-                        <li><strong>Autor y Creador:</strong> Jose</li>
-                        <li><strong>Licencia:</strong> Código Abierto (MIT License)</li>
-                        <li><strong>Motor de Ejecución:</strong> 100% Local Offline (Java + JAR nativo)</li>
-                        <li><strong>Privacidad:</strong> Los diagramas residen exclusivamente en tu disco local</li>
-                        <li><strong>Formatos Exportables:</strong> PNG (1x, 2x, 3x UHD), SVG vectorial, TXT ASCII y PDF</li>
+                        <li data-i18n="aboutAuthor"><strong>Autor y Creador:</strong> Jose</li>
+                        <li data-i18n="aboutLicense"><strong>Licencia:</strong> Código Abierto (MIT License)</li>
+                        <li data-i18n="aboutEngine"><strong>Motor de Ejecución:</strong> 100% Local Offline (Java + JAR nativo)</li>
+                        <li data-i18n="aboutPrivacy"><strong>Privacidad:</strong> Los diagramas residen exclusivamente en tu disco local</li>
+                        <li data-i18n="aboutFormats"><strong>Formatos Exportables:</strong> PNG (1x, 2x, 3x UHD), SVG vectorial, TXT ASCII y PDF</li>
                     </ul>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" onclick="closeModal('about-modal')">Entendido</button>
+                <button class="btn btn-primary" onclick="closeModal('about-modal')" data-i18n="understoodBtn">Entendido</button>
             </div>
         </div>
     </div>
@@ -394,6 +401,7 @@ diagramas de arquitectura, modelos UML, procesos y estructuras de datos.
     <div class="toast" id="toast">Notificación</div>
 
     <!-- Scripts de la Aplicación -->
+    <script src="/static/js/i18n.js"></script>
     <script src="/static/js/templates.js"></script>
     <script src="/static/js/app.js"></script>
 </body>

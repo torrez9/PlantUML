@@ -219,12 +219,37 @@ Dentro del botón **"Mis Diagramas"** encontrarás ejemplos pre-cargados listos 
 
 ---
 
+---
+
+## Soporte Bilingüe (Español / English)
+
+DiagramCraft Studio cuenta con soporte completo y dinámico para dos idiomas:
+
+- **Español (ES)**: Idioma predeterminado con terminología técnica clara.
+- **English (EN)**: Traducción completa de toda la interfaz, atajos, mensajes flotantes, modales y barras de herramientas.
+- **Selector Instantáneo**: Botón en la barra de navegación con icono global (`ES` / `EN`) que almacena tu preferencia en `localStorage`.
+
+---
+
+## Validaciones y Manejo de Excepciones de Seguridad
+
+El sistema implementa una arquitectura de tolerancia a fallos con validaciones en cada nivel:
+
+1. **Protección contra Path Traversal**: Verificación rigurosa de rutas mediante `os.path.realpath` y detección de secuencias de escape de directorios (`..`, `/`, `\`).
+2. **Nombres Reservados en Windows**: Bloqueo preventivo de nombres de archivo del sistema (`CON`, `PRN`, `AUX`, `NUL`, `COM1-COM9`, `LPT1-LPT9`).
+3. **Control de Desbordamiento de Carga**: Límite de carga HTTP configurado a 2 MB y límite de código fuente a 1 MB con códigos de estado HTTP semánticos (`413 Payload Too Large`).
+4. **Respuestas HTTP Estructuradas**: Manejadores globales para errores `400 Bad Request`, `404 Not Found`, `405 Method Not Allowed`, `413 Payload Too Large`, `422 Unprocessable Entity` y `500 Internal Server Error` con explicaciones bilingües en formato JSON.
+5. **Suite de Pruebas Automatizadas**: Pruebas continuas ejecutables con `python tests_validation.py` cubriendo integridad de renderizado, codificación y seguridad.
+
+---
+
 ## Estructura del Proyecto
 
 ```text
 DiagramCraft/
 |-- app.py                  # Servidor backend Flask y API REST local
 |-- encoder.py              # Motor local de compilación (Java + JAR) y decodificador
+|-- tests_validation.py     # Suite de pruebas automatizadas y validaciones
 |-- requirements.txt        # Dependencias de Python (Flask, requests)
 |-- run.bat                 # Script de arranque en 1 clic para Windows
 |-- README.md               # Manual de usuario y documentación técnica
@@ -247,6 +272,7 @@ DiagramCraft/
     |-- css/
     |   `-- style.css       # Sistema de diseño, variables CSS y modo oscuro/claro
     `-- js/
+        |-- i18n.js         # Diccionario y motor de internacionalización (ES / EN)
         |-- templates.js    # Catálogo de plantillas para diagramas UML y No-UML
         `-- app.js          # Controlador frontend: lienzo, zoom continuo, descargas
 ```
