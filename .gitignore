@@ -19,3 +19,10 @@ ENV/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# PyInstaller & Inno Setup
+build/
+dist/
+dist_installer/
+*.spec
+

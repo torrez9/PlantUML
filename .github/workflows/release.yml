@@ -1,0 +1,56 @@
+name: Build and Release DiagramCraft Studio Setup
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Descargar Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Compilar Ejecutable con PyInstaller
+        run: |
+          pyinstaller --noconfirm --onedir --windowed `
+            --name "DiagramCraft" `
+            --add-data "templates;templates" `
+            --add-data "static;static" `
+            --add-data "bin;bin" `
+            --add-data "saved_diagrams;saved_diagrams" `
+            desktop_launcher.py
+
+      - name: Compilar Instalador con Inno Setup
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: installer.iss
+
+      - name: Crear Archivo Comprimido Portable (ZIP)
+        run: |
+          Compress-Archive -Path dist\DiagramCraft\* -DestinationPath dist_installer\DiagramCraft_Studio_Portable.zip
+
+      - name: Publicar Release en GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist_installer/*.exe
+            dist_installer/*.zip
+          name: DiagramCraft Studio ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
