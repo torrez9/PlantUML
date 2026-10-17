@@ -25,13 +25,22 @@ from encoder import (
     DEFAULT_SERVER_URL
 )
 
-# Inicialización de Flask
-app = Flask(__name__)
+import sys
+
+# Inicialización de Flask y resolución de recursos para modo escritorio empaquetado
+if getattr(sys, "frozen", False):
+    bundle_dir = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    template_folder = os.path.join(bundle_dir, "templates")
+    static_folder = os.path.join(bundle_dir, "static")
+    app = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
+    # En modo instalado, guardar diagramas en la carpeta de usuario para evitar problemas de permisos
+    SAVED_DIR = os.path.realpath(os.path.join(os.path.expanduser("~"), "DiagramCraft", "saved_diagrams"))
+else:
+    app = Flask(__name__)
+    SAVED_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "saved_diagrams"))
+
 app.config['JSON_AS_ASCII'] = False
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Límite máximo de petición HTTP: 2 MB
-
-# Directorio local seguro para almacenamiento de diagramas
-SAVED_DIR = os.path.realpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "saved_diagrams"))
 os.makedirs(SAVED_DIR, exist_ok=True)
 
 # Lista de nombres reservados en sistemas de archivos Windows

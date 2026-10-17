@@ -20,37 +20,51 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Instalar Dependencias
+      - name: Instalar Dependencias de Python
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt pyinstaller
 
-      - name: Compilar Ejecutable con PyInstaller
+      - name: Descargar y Empaquetar JRE 21 Portable (Zero-Dependencies)
         run: |
-          pyinstaller --noconfirm --onedir --windowed `
+          Write-Host "Descargando JRE 21 portable desde Adoptium API..."
+          Invoke-WebRequest -Uri "https://api.adoptium.net/v3/binary/latest/21/ga/windows/x64/jre/hotspot/normal/eclipse" -OutFile "jre.zip"
+          Expand-Archive -Path "jre.zip" -DestinationPath "temp_jre"
+          $jreSubFolder = Get-ChildItem -Directory temp_jre | Select-Object -First 1
+          if (-not (Test-Path "bin")) { New-Item -ItemType Directory -Path "bin" }
+          Move-Item -Path $jreSubFolder.FullName -Destination "bin\jre"
+          Remove-Item -Recurse -Force temp_jre, jre.zip
+          Write-Host "Verificando JRE embebido en bin\jre\bin\java.exe:"
+          Test-Path "bin\jre\bin\java.exe"
+
+      - name: Compilar Aplicación de Escritorio Nativa con PyInstaller
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --noconsole `
             --name "DiagramCraft" `
             --add-data "templates;templates" `
             --add-data "static;static" `
             --add-data "bin;bin" `
-            --add-data "saved_diagrams;saved_diagrams" `
+            --hidden-import "clr" `
+            --hidden-import "pythonnet" `
+            --hidden-import "webview" `
             desktop_launcher.py
 
-      - name: Compilar Instalador con Inno Setup
+      - name: Compilar Instalador Setup.exe con Inno Setup
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
         with:
           path: installer.iss
 
-      - name: Crear Archivo Comprimido Portable (ZIP)
+      - name: Crear Paquete Portable ZIP
         run: |
           Compress-Archive -Path dist\DiagramCraft\* -DestinationPath dist_installer\DiagramCraft_Studio_Portable.zip
 
-      - name: Publicar Release en GitHub
+      - name: Publicar Release Oficial en GitHub
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist_installer/*.exe
             dist_installer/*.zip
-          name: DiagramCraft Studio ${{ github.ref_name }}
+          name: DiagramCraft Studio ${{ github.ref_name }} (Zero Dependencies Edition)
           draft: false
           prerelease: false
           generate_release_notes: true

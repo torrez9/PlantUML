@@ -764,6 +764,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { passive: false });
     }
 
+    // Interceptar F5 o Ctrl+R para actualizar el diagrama suavemente en lugar de recargar o abrir pestañas
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "F5" || ((e.ctrlKey || e.metaKey) && (e.key === "r" || e.key === "R"))) {
+            e.preventDefault();
+            renderDiagram(true);
+        }
+    });
+
     // Cerrar modales y menús desplegables con tecla Escape
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {

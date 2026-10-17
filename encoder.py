@@ -23,10 +23,20 @@ import subprocess
 import requests
 from typing import Tuple, Optional, Dict, Any
 
-# Rutas locales
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Rutas locales y soporte para PyInstaller frozen
+if getattr(sys, "frozen", False):
+    BASE_DIR = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    EXE_DIR = os.path.dirname(sys.executable)
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    EXE_DIR = BASE_DIR
+
 BIN_DIR = os.path.join(BASE_DIR, "bin")
 JAR_PATH = os.path.join(BIN_DIR, "plantuml.jar")
+if not os.path.isfile(JAR_PATH):
+    alt_jar = os.path.join(EXE_DIR, "bin", "plantuml.jar")
+    if os.path.isfile(alt_jar):
+        JAR_PATH = alt_jar
 
 # Límites de seguridad
 MAX_CODE_LENGTH = 1_000_000  # 1 MB máximo de código
@@ -50,7 +60,19 @@ COMMON_JAVA_PATHS = [
 def find_java() -> Optional[str]:
     """
     Localiza de forma segura el ejecutable de Java en el sistema.
+    Prioriza el JRE portable empaquetado en la carpeta bin/jre/.
     """
+    # 0. Comprobar JRE portable empaquetado junto a la app
+    bundled_candidates = [
+        os.path.join(BIN_DIR, "jre", "bin", "java.exe"),
+        os.path.join(EXE_DIR, "bin", "jre", "bin", "java.exe"),
+        os.path.join(EXE_DIR, "jre", "bin", "java.exe"),
+        os.path.join(BASE_DIR, "jre", "bin", "java.exe")
+    ]
+    for b_path in bundled_candidates:
+        if os.path.isfile(b_path):
+            return b_path
+
     # 1. Comprobar si 'java' está en PATH
     java_in_path = shutil.which("java")
     if java_in_path and os.path.isfile(java_in_path):
